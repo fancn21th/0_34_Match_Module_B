@@ -1,15 +1,6 @@
 * {
     box-sizing: border-box;
 }
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
-}
-[class*="col-"] {
-    float: left;
-    padding: 15px;
-}
 html {
     font-family: "Lucida Sans", sans-serif;
 }
@@ -45,16 +36,29 @@ html {
     font-size: 12px;
     padding: 15px;
 }
+
+/* responsive style: */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+
 /* For mobile phones: */
 /*[class*="col-"] {*/
     /*width: 100%;*/
 /*}*/
-.collapse{
+.menu-collapse{
     display: none;
 }
+
 @media only screen and (min-width: 480px) {
     /* For tablets: */
-    .collapse{
+    .menu-collapse{
         display: none;
     }
     .col-m-1 {width: 8.33%;}
@@ -72,7 +76,7 @@ html {
 }
 @media only screen and (min-width: 768px) {
     /* For desktop: */
-    .collapse{
+    .menu-collapse{
         display: block;
     }
     .col-1 {width: 8.33%;}
@@ -89,7 +93,7 @@ html {
     .col-12 {width: 100%;}
 }
 
-/* test only */
+/* test only style: */
 .test-border-0 {
     border: 1px solid red;
 }
