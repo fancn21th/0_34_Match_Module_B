@@ -10,7 +10,7 @@ html {
     padding: 15px;
 }
 .container{
-    width: 900px;
+    max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -37,6 +37,19 @@ html {
     padding: 15px;
 }
 
+/* product style: */
+.product-container {
+    width: 100%;
+    height: 300px;
+}
+
+.product{
+    width: 100%;
+    height: 100%;
+    border: 1px dashed red;
+    font-size: xx-large;
+}
+
 /* responsive style: */
 .row::after {
     content: "";
@@ -45,20 +58,33 @@ html {
 }
 [class*="col-"] {
     float: left;
-    padding: 15px;
+    padding: 5px;
 }
 
 /* For mobile phones: */
-/*[class*="col-"] {*/
-    /*width: 100%;*/
-/*}*/
+[class*="col-"] {
+    width: 100%;
+}
+
 .menu-collapse{
     display: none;
+}
+.row-collapse{
+    display: none;
+}
+.carousel-collapse{
+    display: block;
 }
 
 @media only screen and (min-width: 480px) {
     /* For tablets: */
     .menu-collapse{
+        display: none;
+    }
+    .row-collapse{
+        display: block;
+    }
+    .carousel-collapse{
         display: none;
     }
     .col-m-1 {width: 8.33%;}
@@ -78,6 +104,12 @@ html {
     /* For desktop: */
     .menu-collapse{
         display: block;
+    }
+    .row-collapse{
+        display: block;
+    }
+    .carousel-collapse{
+        display: none;
     }
     .col-1 {width: 8.33%;}
     .col-2 {width: 16.66%;}
