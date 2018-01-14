@@ -46,7 +46,8 @@
     <br/>
     <br/>
     <div class="container">
-        <button id="start">Start</button>
+        <button id="left">Move To Left</button>
+        <button id="right">Move To Right</button>
         <button id="pause">Pause</button>
         <button id="resume">Resume</button>
     </div>
@@ -77,21 +78,40 @@
             this.imageObject.css("transform","translateX(" + offset + "px)");
             this.currentPosition = newPosition;
         }
+
+        SwapImage.prototype.moveRight = function () {
+            var newPosition, offset;
+            if(this.currentPosition === positionType.right){
+                newPosition = positionType.left;
+            }else{
+                newPosition = this.currentPosition + 1;
+            }
+            offset = (newPosition -  this.originalPosition) * width;
+            this.imageObject.css("transform","translateX(" + offset + "px)");
+            this.currentPosition = newPosition;
+        }
         
         $(function () {
             var $banner1 = $('.banner1');
             var $banner2 = $('.banner2');
             var $banner3 = $('.banner3');
-            var $start = $('#start');
+            var $left = $('#left');
+            var $right = $('#right');
 
             var banner1 = new SwapImage($banner1, positionType.left);
             var banner2 = new SwapImage($banner2, positionType.mid);
             var banner3 = new SwapImage($banner3, positionType.right);
 
-            $start.click(function () {
+            $left.click(function () {
                 banner1.moveLeft();
                 banner2.moveLeft();
                 banner3.moveLeft();
+            });
+
+            $right.click(function () {
+                banner1.moveRight();
+                banner2.moveRight();
+                banner3.moveRight();
             });
         });
     </script>
