@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* The animation code */
+        @keyframes swap {
+            0% {
+                -ms-transform: translateX(0); /* IE 9 */
+                -webkit-transform: translateX(0); /* Safari 3-8 */
+                transform: translateX(0);
+            }
+            25% {
+                -ms-transform: translateX(-279px); /* IE 9 */
+                -webkit-transform: translateX(-279px); /* Safari 3-8 */
+                transform: translateX(-279px);
+            }
+            50%  {
+                -ms-transform: translateX(279px); /* IE 9 */
+                -webkit-transform: translateX(279px); /* Safari 3-8 */
+                transform: translateX(279px);
+            }
+            100% {
+                -ms-transform: translateX(0); /* IE 9 */
+                -webkit-transform: translateX(0); /* Safari 3-8 */
+                transform: translateX(0);
+            }
+        }
+
+        /* The element to apply the animation to */
+        .baner1 {
+            width: 279px;
+            animation-name: swap;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            -webkit-animation-timing-function: ease-in-out;
+            animation-timing-function: ease-in-out;
+        }
+
+        .container{
+            width: 800px;
+            height: 354px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="images/shadow.png">
+        <img src="images/banner_1.png" class="baner1">
+        <img src="images/shadow.png">
+    </div>
+    <div class="container">
+        <button id="pause">Pause</button>
+        <button id="resume">Resume</button>
+    </div>
+    <script src="js/jquery-2.1.1.js"></script>
+    <script>
+        $(function () {
+            var $pause = $('#pause');
+            var $resume = $('#resume');
+            var $baner1 = $('.baner1');
+            
+            $pause.click(function () {
+                $baner1.css('animation-play-state', 'paused');
+            });
+
+            $resume.click(function () {
+                $baner1.css('animation-play-state', '');
+            });
+        });
+    </script>
+</body>
+</html>
