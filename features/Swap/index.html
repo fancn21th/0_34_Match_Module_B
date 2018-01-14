@@ -20,6 +20,7 @@
 
         .container{
             width: 900px;
+            height: 400px;
             margin: 0 auto;
             background-image: url("images/bg.png");
         }
@@ -66,26 +67,32 @@
             }
 
             SwapImage.prototype.moveLeft = function () {
-                var newPosition, offset;
+                var newPosition, offset, scale = 0.9;
                 if(this.currentPosition === positionType.left){
                     newPosition = positionType.right;
                 }else{
                     newPosition = this.currentPosition - 1;
                 }
+                if(newPosition === positionType.mid) {
+                    scale = 1;
+                }
                 offset = (newPosition -  this.originalPosition) * width;
-                this.imageObject.css("transform","translateX(" + offset + "px)");
+                this.imageObject.css("transform","translateX(" + offset + "px) scale(" +  scale + ")");
                 this.currentPosition = newPosition;
             }
 
             SwapImage.prototype.moveRight = function () {
-                var newPosition, offset;
+                var newPosition, offset, scale = 0.9;
                 if(this.currentPosition === positionType.right){
                     newPosition = positionType.left;
                 }else{
                     newPosition = this.currentPosition + 1;
                 }
+                if(newPosition === positionType.mid) {
+                    scale = 1;
+                }
                 offset = (newPosition -  this.originalPosition) * width;
-                this.imageObject.css("transform","translateX(" + offset + "px)");
+                this.imageObject.css("transform","translateX(" + offset + "px) scale(" +  scale + ")");
                 this.currentPosition = newPosition;
             }
 
