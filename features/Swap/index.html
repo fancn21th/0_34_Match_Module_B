@@ -4,29 +4,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        .banner1 {
+        .banner {
             width: 279px;
-            z-index: 0;
             -webkit-transition:all 1.0s ease-in-out;
             -moz-transition:all 1.0s ease-in-out;
             -o-transition:all 1.0s ease-in-out;
             transition:all 1.0s ease-in-out;
         }
-        .banner2{
-            width: 279px;
-            z-index: 0;
-            -webkit-transition:all 1.0s ease-in-out;
-            -moz-transition:all 1.0s ease-in-out;
-            -o-transition:all 1.0s ease-in-out;
-            transition:all 1.0s ease-in-out;
+        .banner1 {
+        }
+        .banner2 {
         }
         .banner3 {
-            width: 279px;
-            z-index: 0;
-            -webkit-transition:all 1.0s ease-in-out;
-            -moz-transition:all 1.0s ease-in-out;
-            -o-transition:all 1.0s ease-in-out;
-            transition:all 1.0s ease-in-out;
         }
 
         .container{
@@ -34,18 +23,23 @@
             margin: 0 auto;
             background-image: url("images/bg.png");
         }
+        .command-list{
+            width: 900px;
+            margin: 0 auto;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="images/banner_1.png" class="banner1">
-        <img src="images/banner_2.png" class="banner2">
-        <img src="images/banner_3.png" class="banner3">
+        <img src="images/banner_1.png" class="banner1 banner">
+        <img src="images/banner_2.png" class="banner2 banner">
+        <img src="images/banner_3.png" class="banner3 banner">
     </div>
     <br/>
     <br/>
     <br/>
-    <div class="container">
+    <div class="command-list">
         <button id="left">Move To Left</button>
         <button id="right">Move To Right</button>
         <button id="pause">Pause</button>
@@ -53,45 +47,52 @@
     </div>
     <script src="js/jquery-2.1.1.js"></script>
     <script>
-        var width =  279;
-
-        var positionType = {
-            left: -1,
-            mid: 0,
-            right: 1
-        }
-
-        function SwapImage(imageObject, position) {
-            this.imageObject = imageObject;
-            this.originalPosition = position;
-            this.currentPosition = position;
-        }
-
-        SwapImage.prototype.moveLeft = function () {
-            var newPosition, offset;
-            if(this.currentPosition === positionType.left){
-                newPosition = positionType.right;
-            }else{
-                newPosition = this.currentPosition - 1;
-            }
-            offset = (newPosition -  this.originalPosition) * width;
-            this.imageObject.css("transform","translateX(" + offset + "px)");
-            this.currentPosition = newPosition;
-        }
-
-        SwapImage.prototype.moveRight = function () {
-            var newPosition, offset;
-            if(this.currentPosition === positionType.right){
-                newPosition = positionType.left;
-            }else{
-                newPosition = this.currentPosition + 1;
-            }
-            offset = (newPosition -  this.originalPosition) * width;
-            this.imageObject.css("transform","translateX(" + offset + "px)");
-            this.currentPosition = newPosition;
-        }
-        
         $(function () {
+            var width =  279;
+            var positionType = {
+                left: -1,
+                mid: 0,
+                right: 1
+            }
+
+            ///////////////////////////////////////////////////////////////////////////////
+            // class def starts
+            ///////////////////////////////////////////////////////////////////////////////
+
+            function SwapImage(imageObject, position) {
+                this.imageObject = imageObject;
+                this.originalPosition = position;
+                this.currentPosition = position;
+            }
+
+            SwapImage.prototype.moveLeft = function () {
+                var newPosition, offset;
+                if(this.currentPosition === positionType.left){
+                    newPosition = positionType.right;
+                }else{
+                    newPosition = this.currentPosition - 1;
+                }
+                offset = (newPosition -  this.originalPosition) * width;
+                this.imageObject.css("transform","translateX(" + offset + "px)");
+                this.currentPosition = newPosition;
+            }
+
+            SwapImage.prototype.moveRight = function () {
+                var newPosition, offset;
+                if(this.currentPosition === positionType.right){
+                    newPosition = positionType.left;
+                }else{
+                    newPosition = this.currentPosition + 1;
+                }
+                offset = (newPosition -  this.originalPosition) * width;
+                this.imageObject.css("transform","translateX(" + offset + "px)");
+                this.currentPosition = newPosition;
+            }
+
+            ///////////////////////////////////////////////////////////////////////////////
+            // class def ends
+            ///////////////////////////////////////////////////////////////////////////////
+
             var $banner1 = $('.banner1');
             var $banner2 = $('.banner2');
             var $banner3 = $('.banner3');
