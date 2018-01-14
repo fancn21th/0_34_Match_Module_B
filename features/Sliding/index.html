@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #slide1_container {
+            width:450px;
+            height:281px;
+            overflow:hidden; /* So the sliding bit doesn't stick out. */
+            margin:0 auto;
+        }
+        #slide1_images {
+            /* This is the bit that moves. It has 4 images, so 4 * 450 = 1800. You could use javascript
+            to work this out instead by counting images. */
+            width:1800px;
+            -webkit-transition:all 1.0s ease-in-out;
+            -moz-transition:all 1.0s ease-in-out;
+            -o-transition:all 1.0s ease-in-out;
+            transition:all 1.0s ease-in-out;
+        }
+        #slide1_images img {
+            width:450px;
+            height:281px;
+            padding:0;
+            margin:0;
+            float:left; /* All the images are in a row next to each other. */
+        }
+        #slide1_controls{
+            width:450px;
+            margin:0 auto;
+        }
+        .selected {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="slide1_container" class="shadow">
+            <div id="slide1_images" style="transform: translateX(0px);">
+                <img src="img_fjords_wide.jpg">
+                <img src="img_lights_wide.jpg">
+                <img src="img_mountains_wide.jpg">
+                <img src="img_nature_wide.jpg">
+            </div>
+        </div>
+        <p id="slide1_controls">
+            <span class="selected">Image 1</span>
+            <span class="">Image 2</span>
+            <span class="">Image 3</span>
+            <span class="">Image 4</span>
+        </p>
+    </div>
+    <script src="jquery-2.1.1.js"></script>
+    <script>
+        $(document).ready(function() {
+            // $('#slide1_controls').on('click', 'span', function(){
+            //     $("#slide1_images").css("transform","translateX("+$(this).index() * -450+"px)");
+            //     $("#slide1_controls span").removeClass("selected");
+            //     $(this).addClass("selected");
+            // });
+            var width = 450;
+            var pause = 2000;
+            var interval;
+            var currentSlide = 1;
+
+            var $slide1_controls = $('#slide1_controls span');
+            var $slide1_images = $('#slide1_images');
+            var $slide1_images_img = $('#slide1_images img');
+
+            function startSliding() {
+                interval = setInterval(function () {
+                    $slide1_images.css("transform","translateX("+currentSlide++ * -width+"px)");
+                    $slide1_controls.removeClass("selected");
+                    $slide1_controls.eq(currentSlide - 1).addClass("selected");
+
+                    if (currentSlide === $slide1_images_img.length + 1) {
+                        currentSlide = 1;
+                        $slide1_images.css("transform","translateX(0px)");
+                        $slide1_controls.removeClass("selected");
+                        $slide1_controls.eq(currentSlide - 1).addClass("selected");
+                    }
+                }, pause)
+            }
+
+            startSliding();
+        });
+    </script>
+</body>
+</html>
