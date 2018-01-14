@@ -38,9 +38,9 @@
 </head>
 <body>
     <div class="container">
-        <img src="images/shadow.png" class="banner1">
+        <img src="images/banner_1.png" class="banner1">
         <img src="images/banner_2.png" class="banner2">
-        <img src="images/shadow.png" class="banner3">
+        <img src="images/banner_3.png" class="banner3">
     </div>
     <br/>
     <br/>
@@ -52,56 +52,46 @@
     </div>
     <script src="js/jquery-2.1.1.js"></script>
     <script>
+        var width =  279;
+
+        var positionType = {
+            left: -1,
+            mid: 0,
+            right: 1
+        }
+
+        function SwapImage(imageObject, position) {
+            this.imageObject = imageObject;
+            this.originalPosition = position;
+            this.currentPosition = position;
+        }
+
+        SwapImage.prototype.moveLeft = function () {
+            var newPosition, offset;
+            if(this.currentPosition === positionType.left){
+                newPosition = positionType.right;
+            }else{
+                newPosition = this.currentPosition - 1;
+            }
+            offset = (newPosition -  this.originalPosition) * width;
+            this.imageObject.css("transform","translateX(" + offset + "px)");
+            this.currentPosition = newPosition;
+        }
+        
         $(function () {
             var $banner1 = $('.banner1');
             var $banner2 = $('.banner2');
             var $banner3 = $('.banner3');
             var $start = $('#start');
-            var currentStep = 1;
-            var fadeInTime = 500;
-            var fadeOutTime = 500;
-            var bannerList = [$banner1, $banner2, $banner3];
-            var mv1 = [548, 279, 0];
-            var mv2 = [-279, 279, 0];
-            var mv3 = [-279, -548, 0];
 
-            function getImg(isMid, index) {
-                if(isMid) {
-                    $banner1.css('z-index', 0);
-                    $banner2.css('z-index', 0);
-                    $banner3.css('z-index', 0);
-                    bannerList[index].css('z-index', 100);
-                    switch(index) {
-                        case 0: return 'images/banner_1.png';
-                        case 1: return 'images/banner_2.png';
-                        case 2: return 'images/banner_3.png';
-                    }
-                } else {
-                    return 'images/shadow.png';
-                }
-            }
+            var banner1 = new SwapImage($banner1, positionType.left);
+            var banner2 = new SwapImage($banner2, positionType.mid);
+            var banner3 = new SwapImage($banner3, positionType.right);
 
             $start.click(function () {
-                $banner1.css("transform","translateX(" + mv1[currentStep - 1] + "px)");
-                $banner2.css("transform","translateX(" + mv2[currentStep - 1] + "px)");
-                $banner3.css("transform","translateX(" + mv3[currentStep - 1] + "px)");
-                var isBanner1Mid = mv1[currentStep - 1] === 279;
-                var isBanner2Mid = mv2[currentStep - 1] === 0;
-                var isBanner3Mid = mv3[currentStep - 1] === -279;
-                $banner1.fadeOut(fadeOutTime, function () {
-                    $banner1.attr('src', getImg(isBanner1Mid, 0));
-                    $banner1.fadeIn(fadeInTime);
-                })
-                $banner2.fadeOut(fadeOutTime, function () {
-                    $banner2.attr('src', getImg(isBanner2Mid, 1));
-                    $banner2.fadeIn(fadeInTime);
-                })
-                $banner3.fadeOut(fadeOutTime, function () {
-                    $banner3.attr('src', getImg(isBanner3Mid, 2));
-                    $banner3.fadeIn(fadeInTime);
-                })
-                currentStep ++;
-                if(currentStep === 4) currentStep = 1;
+                banner1.moveLeft();
+                banner2.moveLeft();
+                banner3.moveLeft();
             });
         });
     </script>
