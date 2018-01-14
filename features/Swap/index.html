@@ -4,70 +4,104 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        /* The animation code */
-        @keyframes swap {
-            0% {
-                -ms-transform: translateX(0); /* IE 9 */
-                -webkit-transform: translateX(0); /* Safari 3-8 */
-                transform: translateX(0);
-            }
-            25% {
-                -ms-transform: translateX(-279px); /* IE 9 */
-                -webkit-transform: translateX(-279px); /* Safari 3-8 */
-                transform: translateX(-279px);
-            }
-            50%  {
-                -ms-transform: translateX(279px); /* IE 9 */
-                -webkit-transform: translateX(279px); /* Safari 3-8 */
-                transform: translateX(279px);
-            }
-            100% {
-                -ms-transform: translateX(0); /* IE 9 */
-                -webkit-transform: translateX(0); /* Safari 3-8 */
-                transform: translateX(0);
-            }
-        }
-
-        /* The element to apply the animation to */
-        .baner1 {
+        .banner1 {
             width: 279px;
-            animation-name: swap;
-            animation-duration: 4s;
-            animation-iteration-count: infinite;
-            -webkit-animation-timing-function: ease-in-out;
-            animation-timing-function: ease-in-out;
+            z-index: 0;
+            -webkit-transition:all 1.0s ease-in-out;
+            -moz-transition:all 1.0s ease-in-out;
+            -o-transition:all 1.0s ease-in-out;
+            transition:all 1.0s ease-in-out;
+        }
+        .banner2{
+            width: 279px;
+            z-index: 0;
+            -webkit-transition:all 1.0s ease-in-out;
+            -moz-transition:all 1.0s ease-in-out;
+            -o-transition:all 1.0s ease-in-out;
+            transition:all 1.0s ease-in-out;
+        }
+        .banner3 {
+            width: 279px;
+            z-index: 0;
+            -webkit-transition:all 1.0s ease-in-out;
+            -moz-transition:all 1.0s ease-in-out;
+            -o-transition:all 1.0s ease-in-out;
+            transition:all 1.0s ease-in-out;
         }
 
         .container{
-            width: 800px;
-            height: 354px;
+            width: 900px;
             margin: 0 auto;
+            background-image: url("images/bg.png");
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <img src="images/shadow.png">
-        <img src="images/banner_1.png" class="baner1">
-        <img src="images/shadow.png">
+        <img src="images/shadow.png" class="banner1">
+        <img src="images/banner_2.png" class="banner2">
+        <img src="images/shadow.png" class="banner3">
     </div>
+    <br/>
+    <br/>
+    <br/>
     <div class="container">
+        <button id="start">Start</button>
         <button id="pause">Pause</button>
         <button id="resume">Resume</button>
     </div>
     <script src="js/jquery-2.1.1.js"></script>
     <script>
         $(function () {
-            var $pause = $('#pause');
-            var $resume = $('#resume');
-            var $baner1 = $('.baner1');
-            
-            $pause.click(function () {
-                $baner1.css('animation-play-state', 'paused');
-            });
+            var $banner1 = $('.banner1');
+            var $banner2 = $('.banner2');
+            var $banner3 = $('.banner3');
+            var $start = $('#start');
+            var currentStep = 1;
+            var fadeInTime = 500;
+            var fadeOutTime = 500;
+            var bannerList = [$banner1, $banner2, $banner3];
+            var mv1 = [548, 279, 0];
+            var mv2 = [-279, 279, 0];
+            var mv3 = [-279, -548, 0];
 
-            $resume.click(function () {
-                $baner1.css('animation-play-state', '');
+            function getImg(isMid, index) {
+                if(isMid) {
+                    $banner1.css('z-index', 0);
+                    $banner2.css('z-index', 0);
+                    $banner3.css('z-index', 0);
+                    bannerList[index].css('z-index', 100);
+                    switch(index) {
+                        case 0: return 'images/banner_1.png';
+                        case 1: return 'images/banner_2.png';
+                        case 2: return 'images/banner_3.png';
+                    }
+                } else {
+                    return 'images/shadow.png';
+                }
+            }
+
+            $start.click(function () {
+                $banner1.css("transform","translateX(" + mv1[currentStep - 1] + "px)");
+                $banner2.css("transform","translateX(" + mv2[currentStep - 1] + "px)");
+                $banner3.css("transform","translateX(" + mv3[currentStep - 1] + "px)");
+                var isBanner1Mid = mv1[currentStep - 1] === 279;
+                var isBanner2Mid = mv2[currentStep - 1] === 0;
+                var isBanner3Mid = mv3[currentStep - 1] === -279;
+                $banner1.fadeOut(fadeOutTime, function () {
+                    $banner1.attr('src', getImg(isBanner1Mid, 0));
+                    $banner1.fadeIn(fadeInTime);
+                })
+                $banner2.fadeOut(fadeOutTime, function () {
+                    $banner2.attr('src', getImg(isBanner2Mid, 1));
+                    $banner2.fadeIn(fadeInTime);
+                })
+                $banner3.fadeOut(fadeOutTime, function () {
+                    $banner3.attr('src', getImg(isBanner3Mid, 2));
+                    $banner3.fadeIn(fadeInTime);
+                })
+                currentStep ++;
+                if(currentStep === 4) currentStep = 1;
             });
         });
     </script>
