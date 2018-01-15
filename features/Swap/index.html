@@ -67,7 +67,7 @@
             }
 
             SwapImage.prototype.moveLeft = function () {
-                var newPosition, offsetX, offsetY = 0, scale = 0.9;
+                var newPosition, offsetX, offsetY = 0, scale = 0.9, opacityValue;
                 if(this.currentPosition === positionType.left){
                     newPosition = positionType.right;
                 }else{
@@ -75,11 +75,14 @@
                 }
                 if(newPosition === positionType.mid) {
                     scale = 1;
+                    opacityValue = 1;
                 }else{
                     offsetY = 17;
+                    opacityValue = 0.1;
                 }
                 offsetX = (newPosition -  this.originalPosition) * width;
                 this.imageObject.css("transform", "translateX(" + offsetX + "px) translateY(" + offsetY + "px) scale(" +  scale + ")");
+                this.imageObject.animate({ opacity: opacityValue });
                 this.currentPosition = newPosition;
             }
 
