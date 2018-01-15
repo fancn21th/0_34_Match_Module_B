@@ -67,7 +67,7 @@
             }
 
             SwapImage.prototype.moveLeft = function () {
-                var newPosition, offset, scale = 0.9;
+                var newPosition, offsetX, offsetY = 0, scale = 0.9;
                 if(this.currentPosition === positionType.left){
                     newPosition = positionType.right;
                 }else{
@@ -75,14 +75,16 @@
                 }
                 if(newPosition === positionType.mid) {
                     scale = 1;
+                }else{
+                    offsetY = 17;
                 }
-                offset = (newPosition -  this.originalPosition) * width;
-                this.imageObject.css("transform","translateX(" + offset + "px) scale(" +  scale + ")");
+                offsetX = (newPosition -  this.originalPosition) * width;
+                this.imageObject.css("transform", "translateX(" + offsetX + "px) translateY(" + offsetY + "px) scale(" +  scale + ")");
                 this.currentPosition = newPosition;
             }
 
             SwapImage.prototype.moveRight = function () {
-                var newPosition, offset, scale = 0.9;
+                var newPosition, offsetX, offsetY = 0, scale = 0.9;
                 if(this.currentPosition === positionType.right){
                     newPosition = positionType.left;
                 }else{
@@ -90,9 +92,11 @@
                 }
                 if(newPosition === positionType.mid) {
                     scale = 1;
+                }else{
+                    offsetY = 17;
                 }
-                offset = (newPosition -  this.originalPosition) * width;
-                this.imageObject.css("transform","translateX(" + offset + "px) scale(" +  scale + ")");
+                offsetX = (newPosition -  this.originalPosition) * width;
+                this.imageObject.css("transform", "translateX(" + offsetX + "px) translateY(" + offsetY + "px) scale(" +  scale + ")");
                 this.currentPosition = newPosition;
             }
 
