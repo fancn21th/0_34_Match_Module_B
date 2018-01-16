@@ -5,6 +5,7 @@
     <title>Title</title>
     <style>
         .banner {
+            position: relative;
             width: 279px;
             -webkit-transition:all 1.0s ease-in-out;
             -moz-transition:all 1.0s ease-in-out;
@@ -12,17 +13,21 @@
             transition:all 1.0s ease-in-out;
         }
         .banner1 {
+            opacity: 0.1;
         }
         .banner2 {
         }
         .banner3 {
+            opacity: 0.1;
         }
 
         .container{
+            position: relative;
             width: 900px;
             height: 400px;
             margin: 0 auto;
             background-image: url("images/bg.png");
+            z-index: -200;
         }
         .command-list{
             width: 900px;
@@ -67,27 +72,36 @@
             }
 
             SwapImage.prototype.moveLeft = function () {
-                var newPosition, offsetX, offsetY = 0, scale = 0.9, opacityValue;
+                var newPosition, offsetX, offsetY, scale, opacityValue, zIndex;
                 if(this.currentPosition === positionType.left){
                     newPosition = positionType.right;
                 }else{
                     newPosition = this.currentPosition - 1;
                 }
                 if(newPosition === positionType.mid) {
+                    offsetY = 0;
                     scale = 1;
                     opacityValue = 1;
                 }else{
                     offsetY = 17;
+                    scale = 0.9;
                     opacityValue = 0.1;
                 }
+                if(newPosition === positionType.right) {
+                    zIndex = -100;
+                }else{
+                    zIndex = 0;
+                }
                 offsetX = (newPosition -  this.originalPosition) * width;
+
+                this.imageObject.css("z-index", zIndex);
                 this.imageObject.css("transform", "translateX(" + offsetX + "px) translateY(" + offsetY + "px) scale(" +  scale + ")");
                 this.imageObject.animate({ opacity: opacityValue });
                 this.currentPosition = newPosition;
             }
 
             SwapImage.prototype.moveRight = function () {
-                var newPosition, offsetX, offsetY = 0, scale = 0.9;
+                var newPosition, offsetX, offsetY, scale, opacityValue, zIndex;
                 if(this.currentPosition === positionType.right){
                     newPosition = positionType.left;
                 }else{
@@ -95,11 +109,23 @@
                 }
                 if(newPosition === positionType.mid) {
                     scale = 1;
+                    offsetY = 0;
+                    opacityValue = 1;
                 }else{
+                    scale = 0.9;
                     offsetY = 17;
+                    opacityValue = 0.1;
+                }
+                if(newPosition === positionType.left) {
+                    zIndex = -100;
+                }else{
+                    zIndex = 0;
                 }
                 offsetX = (newPosition -  this.originalPosition) * width;
+
+                this.imageObject.css("z-index", zIndex);
                 this.imageObject.css("transform", "translateX(" + offsetX + "px) translateY(" + offsetY + "px) scale(" +  scale + ")");
+                this.imageObject.animate({ opacity: opacityValue });
                 this.currentPosition = newPosition;
             }
 
